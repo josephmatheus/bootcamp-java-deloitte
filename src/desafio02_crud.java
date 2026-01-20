@@ -11,6 +11,7 @@ class Cliente {
     }
 }
 void main() {
+    // Cria array de clientes
     ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
     Scanner scanner = new Scanner(System.in);
