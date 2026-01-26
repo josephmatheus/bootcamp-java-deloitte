@@ -3,6 +3,16 @@ class Cliente {
     String cpf;
     boolean planoAtivo;
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    public void setPlanoAtivo(boolean planoAtivo) {
+        this.planoAtivo = planoAtivo;
+    }
+
     @Override
     public String toString() {
         return "Nome: " + nome +
@@ -11,19 +21,20 @@ class Cliente {
     }
 }
 void main() {
+    // Cria array de clientes
     ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
     Scanner scanner = new Scanner(System.in);
     int escolha;
 
     do {
-        System.out.println("========== MENU ==========\n" +
+        System.out.println("\n========== MENU ==========\n" +
                 "1 - Cadastrar novo cliente\n" +
                 "2 - Ver clientes cadastrados\n" +
                 "3 - Atualizar dados de um cliente\n" +
                 "4 - Excluir cadastro de cliente\n" +
                 "0 - Sair\n" +
-                "==========================");
+                "==========================\n");
 
         System.out.print("Digite a opção desejada: ");
         escolha = scanner.nextInt();
@@ -34,13 +45,13 @@ void main() {
                 Cliente novoCliente = new Cliente();
 
                 System.out.print("Digite o nome do cliente: ");
-                novoCliente.nome = scanner.nextLine();
+                novoCliente.setNome(scanner.nextLine());
 
                 System.out.print("Digite o CPF do novo cliente: ");
-                novoCliente.cpf = scanner.nextLine();
+                novoCliente.setCpf(scanner.nextLine());
 
                 System.out.print("Cliente em dia? (true/false): ");
-                novoCliente.planoAtivo = scanner.nextBoolean();
+                novoCliente.setPlanoAtivo(scanner.nextBoolean());
 
                 clientes.add(novoCliente);
                 System.out.println("Cliente cadastrado com sucesso!");
@@ -76,13 +87,13 @@ void main() {
                         Cliente cliente = clientes.get(indice - 1);
 
                         System.out.print("Novo nome: ");
-                        cliente.nome = scanner.nextLine();
+                        cliente.setNome(scanner.nextLine());
 
                         System.out.print("Novo CPF: ");
-                        cliente.cpf = scanner.nextLine();
+                        cliente.setCpf(scanner.nextLine());
 
                         System.out.print("Plano ativo? (true/false): ");
-                        cliente.planoAtivo = scanner.nextBoolean();
+                        cliente.setPlanoAtivo(scanner.nextBoolean());
 
                         System.out.println("✅ Cliente atualizado com sucesso!");
                     }
