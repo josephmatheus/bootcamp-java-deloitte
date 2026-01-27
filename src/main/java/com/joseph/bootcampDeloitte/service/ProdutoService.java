@@ -1,46 +1,16 @@
 package com.joseph.bootcampDeloitte.service;
 
-import com.joseph.bootcampDeloitte.model.Produto;
-import com.joseph.bootcampDeloitte.repository.ProdutoRepository;
-import org.springframework.stereotype.Service;
+import com.joseph.bootcampDeloitte.dto.ProdutoRequestDTO;
+import com.joseph.bootcampDeloitte.dto.ProdutoResponseDTO;
 
 import java.util.List;
 
-@Service
-public class ProdutoService {
+public interface ProdutoService {
 
-    private final ProdutoRepository produtoRepository;
+    List<ProdutoResponseDTO> listarProdutos();
+    ProdutoResponseDTO buscarProdutoPorId(Long id);
+    ProdutoResponseDTO cadastrarProduto(ProdutoRequestDTO produto);
+    ProdutoResponseDTO atualizarProdutoPorId(Long id, ProdutoRequestDTO produto);
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
-        this.produtoRepository = produtoRepository;
-    }
-
-    public List<Produto> listarProdutos(){
-        return (List<Produto>) produtoRepository.findAll();
-    }
-
-    public Produto cadastrarProduto(Produto produto){
-        return produtoRepository.save(produto);
-    }
-
-    public Produto buscarProdutoPorId(Long id){
-        return produtoRepository.findById(id).orElse(null);
-    }
-
-    public boolean excluirProdutoPorId(Long id){
-        if(produtoRepository.existsById(id)){
-            produtoRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-    public Produto atualizarProdutoPorId(Long id, Produto produtoAtualizado){
-        produtoRepository.findById(id).map(produto -> {
-            produto.setNome(produtoAtualizado.getNome());
-            produto.setPreco(produtoAtualizado.getPreco());
-            return produtoRepository.save(produto);
-        }).orElse(null);
-        return produtoAtualizado;
-    }
+    void excluirProdutoPorId(Long id);
 }

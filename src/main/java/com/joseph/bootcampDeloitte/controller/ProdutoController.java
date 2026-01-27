@@ -1,8 +1,10 @@
 package com.joseph.bootcampDeloitte.controller;
 
-import com.joseph.bootcampDeloitte.model.Produto;
+import com.joseph.bootcampDeloitte.dto.ProdutoRequestDTO;
+import com.joseph.bootcampDeloitte.dto.ProdutoResponseDTO;
+import com.joseph.bootcampDeloitte.exception.ProdutoNaoEncontradoException;
 import com.joseph.bootcampDeloitte.service.ProdutoService;
-import jakarta.persistence.Id;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class ProdutoController {
 
     @GetMapping("/produtos")
     public Object listarProdutos() {
-        List<Produto> produtos = produtoService.listarProdutos();
+        List<ProdutoResponseDTO> produtos = produtoService.listarProdutos();
         if (produtos.isEmpty()) {
             return "Não há nenhum produto cadastrado";
         }
@@ -28,29 +30,26 @@ public class ProdutoController {
 
     @GetMapping("/produtos/{id}")
     public Object buscarProduto(@PathVariable Long id) {
-        Produto produto = produtoService.buscarProdutoPorId(id);
+        ProdutoResponseDTO produto = produtoService.buscarProdutoPorId(id);
         if (produto == null) {
-            return "Nenhum produto encontrado com este ID";
+            throw new ProdutoNaoEncontradoException(id);
         }
         return produto;
     }
 
     @PostMapping("/produtos")
-    public Produto cadastrarProduto(@RequestBody Produto produto) {
+    public ProdutoResponseDTO cadastrarProduto(@RequestBody ProdutoRequestDTO produto) {
         return produtoService.cadastrarProduto(produto);
     }
 
     @DeleteMapping("/produtos/{id}")
-    public String excluirProduto(@PathVariable Long id) {
-        boolean excluido = produtoService.excluirProdutoPorId(id);
-        if (excluido) {
-            return "Produto deletado com sucesso";
-        }
-        return "Nenhum produto encontrado com este ID";
+    public ResponseEntity<String> excluirProduto(@PathVariable Long id) {
+        produtoService.excluirProdutoPorId(id);
+        return ResponseEntity.ok("Produto excluido com sucesso!");
     }
     
     @PutMapping("/produtos/{id}")
-    public Produto atualizarProduto(@PathVariable Long id, @RequestBody Produto produto) {
+    public ProdutoResponseDTO atualizarProduto(@PathVariable Long id, @RequestBody ProdutoRequestDTO produto) {
         return produtoService.atualizarProdutoPorId(id, produto);
     }
 
