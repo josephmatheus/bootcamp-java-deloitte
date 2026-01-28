@@ -20,21 +20,13 @@ public class ProdutoController {
     }
 
     @GetMapping("/produtos")
-    public Object listarProdutos() {
-        List<ProdutoResponseDTO> produtos = produtoService.listarProdutos();
-        if (produtos.isEmpty()) {
-            return "Não há nenhum produto cadastrado";
-        }
-        return produtos;
+    public List<ProdutoResponseDTO> listarProdutos() {
+        return produtoService.listarProdutos();
     }
 
     @GetMapping("/produtos/{id}")
-    public Object buscarProduto(@PathVariable Long id) {
-        ProdutoResponseDTO produto = produtoService.buscarProdutoPorId(id);
-        if (produto == null) {
-            throw new ProdutoNaoEncontradoException(id);
-        }
-        return produto;
+    public ProdutoResponseDTO buscarProduto(@PathVariable Long id) {
+        return produtoService.buscarProdutoPorId(id);
     }
 
     @PostMapping("/produtos")
@@ -45,7 +37,7 @@ public class ProdutoController {
     @DeleteMapping("/produtos/{id}")
     public ResponseEntity<String> excluirProduto(@PathVariable Long id) {
         produtoService.excluirProdutoPorId(id);
-        return ResponseEntity.ok("Produto excluido com sucesso!");
+        return ResponseEntity.ok("Produto excluído com sucesso!");
     }
     
     @PutMapping("/produtos/{id}")
