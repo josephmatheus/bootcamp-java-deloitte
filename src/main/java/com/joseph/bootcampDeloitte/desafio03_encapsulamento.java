@@ -1,3 +1,5 @@
+package com.joseph.bootcampDeloitte;
+
 import java.time.LocalDate;
 
 class Pessoa {
@@ -230,7 +232,9 @@ class Elevador {
 
 }
 
-void main() {
+public class desafio03_encapsulamento {
+
+    public static void main(String[] args) {
     /*
     Testes classe Pessoa:
     LocalDate dataNascimento = LocalDate.of(1994,9,12);
@@ -249,12 +253,13 @@ void main() {
     jogador.tempoParaAposentadoria();
      */
 
-    // Testes classe Elevador:
-    Elevador elevador = new Elevador(10, 7);
-    elevador.infoElevador();
-    elevador.entrar();
-    elevador.infoElevador();
-    elevador.moverElevador(10);
-    elevador.sair();
-    elevador.infoElevador();
+        // Testes classe Elevador:
+        Elevador elevador = new Elevador(10, 7);
+        elevador.infoElevador();
+        elevador.entrar();
+        elevador.infoElevador();
+        elevador.moverElevador(10);
+        elevador.sair();
+        elevador.infoElevador();
+    }
 }
